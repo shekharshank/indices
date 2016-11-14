@@ -20,8 +20,8 @@ import (
 const (
     MyDB = "collectd-db"
     //measurement = "system_metrics"
-    username = "user"
-    password = "pass"
+    username = "<user>"
+    password = "<pass>"
 )
 
 
@@ -40,6 +40,7 @@ func init() {
 }
 
 func main() {
+	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
 	influxc, err := client.NewHTTPClient(client.HTTPConfig{
                 Addr: "http://localhost:8086",
@@ -202,7 +203,8 @@ func handle(dbClient client.Client, deliveries <-chan amqp.Delivery, done chan e
 		jsonerr := json.NewDecoder(strings.NewReader(s)).Decode(&m)
 		if jsonerr != nil {
 		    log.Println(jsonerr.Error())
-		    return
+		    d.Ack(false)
+		    continue
 		}
 	//	 log.Println(m)
 		writePoints(dbClient, m[0])
@@ -302,6 +304,13 @@ func writePoints(clnt client.Client, m PerfMetric) {
 				fields["vcpu_sum"] = m.Values[0] 
 			}
 			break
+
+		case "bench":
+			measurement = "bench"
+			tags["instance"] = m.TypeInstance
+			fields["intensity"] = m.Values[0]
+			break
+			
 		default:
 			measurement = "host_metrics"
 			// parse according to needed fields
