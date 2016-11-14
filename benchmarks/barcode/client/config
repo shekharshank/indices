@@ -1,0 +1,7 @@
+[IMAGES]
+UPLOAD_URL=http://<SERVER>/fileUpload.php
+DIR=data
+
+[PROCESSING]
+INDICES_LOCAL_MANAGER=http://<MANAGER>:9950/api/runtime_perf
+INTERVAL=2
