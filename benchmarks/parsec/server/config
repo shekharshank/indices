@@ -1,0 +1,9 @@
+[EXECUTOR]
+DIR=/home/ubuntu/parsec-3.0/
+EXECFILE=/bin/parsecmgmt
+TESTLIST=tests
+DATA=simsmall
+
+[PROCESSING]
+INDICES_LOCAL_MANAGER=http://<MANAGER>:9950/api/runtime_perf
+INTERVAL=2
