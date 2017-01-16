@@ -1,0 +1,4 @@
+parsec-bench 192.168.122.10 instance-00000164
+parsec1 192.168.122.11 instance-0000016f
+parsec2 192.168.122.12 instance-00000170
+parsec3 192.168.122.13 instance-00000171
