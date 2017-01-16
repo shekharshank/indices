@@ -308,7 +308,8 @@ func writePoints(clnt client.Client, m PerfMetric) {
 		case "bench":
 			measurement = "bench"
 			tags["instance"] = m.TypeInstance
-			fields["intensity"] = m.Values[0]
+			//fields["intensity"] = m.Values[0]
+		   	fields["intensity"] = float64(m.Values[0])
 			break
 			
 		default:
