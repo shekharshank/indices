@@ -1,0 +1,4 @@
+OPTERON_4170HE=AuthenticAMD,8,16
+CORE2DUO_Q9950=GenuineIntel,23,6
+XEON_W3530=GenuineIntel,26,6
+I7_870=GenuineIntel,30,6

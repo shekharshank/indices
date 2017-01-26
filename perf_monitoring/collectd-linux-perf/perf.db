@@ -1,0 +1,2 @@
+perf             cs:GAUGE:0:UZ, page-faults:GAUGE:0:U, cycles:GAUGE:0:U, instructions:GAUGE:0:U, cache-references:GAUGE:0:U, cache-misses:GAUGE:0:U, mem-bandwidth:GAUGE:0:U, sched-switch:GAUGE:0:U, kvm-exit:GAUGE:0:U, sched-wait:GAUGE:0:U, sched-iowait:GAUGE:0:U
+intensity        value:GAUGE:0:U
