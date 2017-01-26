@@ -129,7 +129,6 @@ def get_vm_perf_command():
 	return command
 
 def parse_and_set_result(file_name, is_host, membw_counter_count=0):
-
         all_vals = []
         membw_counter1 = 0.0
         with  open(file_name, 'r') as f:
@@ -140,7 +139,7 @@ def parse_and_set_result(file_name, is_host, membw_counter_count=0):
                                 continue
                         linevals = line.split(',')
 			# if first mem bw counter 
-                        if (is_host and count == 9) or ((not is_host) and membw_counter_count != 0 and count == 4 ):
+                        if (is_host and count == 9) or ((not is_host) and membw_counter_count != 0 and count == 3 ):
                                 membw_counter1 = linevals[0]
                                 if membw_counter_count == 1:
                                         all_vals.append(get_number(membw_counter1))
@@ -195,6 +194,7 @@ def reader(input_data=None):
 	all_vals = parse_and_set_result(host_filename, True, membw_counter_count)
 
         out_all.values = all_vals
+	collectd.debug('dipatching: ' + str(out_all.values))
         out_all.dispatch()
 
 
@@ -207,7 +207,7 @@ def reader(input_data=None):
 			out_all.plugin_instance = data[1]
 			for result_type in filename_sfx_list:
 				vmdata_filename =  _temp_out + "/" + vmname + result_type
-				if filename_sfx_list == "_membw.out":
+				if result_type == "_membw.out":
 					vals = parse_and_set_result(vmdata_filename, False, membw_counter_count)
 					all_vals.extend(vals)
 				else:
