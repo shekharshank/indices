@@ -27,6 +27,7 @@ Add this to /etc/collectd/collectd.conf:
                 duration 5
                 refresh_interval 30
                 temp_output_dir "/usr/share/collectd/out"
+                collect_vm false
                 #vm_name  "VM_NAME"
         </Module>
     </Plugin>
