@@ -144,10 +144,14 @@ def parse_and_set_result(file_name, is_host, membw_counter_count=0):
                                 membw_counter1 = linevals[0]
                                 if membw_counter_count == 1:
                                         all_vals.append(get_number(membw_counter1))
+					# dummy for LLC bw
+                                        all_vals.append(0.0)
 			# else if second 	
                         elif (membw_counter_count == 2) and ((is_host and count == 10) or (not is_host)):
 				value = eval(membw_counter1 + _hardware_param_map.get('MEM_BW_COUNTER_RELATION') + linevals[0])
 				all_vals.append(value)
+				# dummy for LLC bw
+				all_vals.append(0.0)
                         else:
                                 all_vals.append(get_number(linevals[0]))
         return all_vals
