@@ -105,11 +105,11 @@ Set
 ```
 Also add the following user/password in the RabbitMQ
 
-``
+```
  sudo rabbitmqctl add_user <user> <pass>
  sudo rabbitmqctl  set_permissions -p / <user> ".*" ".*" ".*"
 
-``
+```
 
 Misc. commands for deleting the queue
 
