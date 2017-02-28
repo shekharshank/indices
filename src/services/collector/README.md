@@ -1,9 +1,12 @@
-INDICES Performance Data Collector
+#INDICES Performance Data Collector
 
-On Collectd server:
+The performance data collector relies on collectd for data collection on client machines and AMQP/RabbitMQ message queue for publishing
+performance metrics to a central location. The collector server runs a Go lang application that persists the data in influx DB.
+
+##On collection server:
 =====
 
-Download Indices:
+###Download Indices:
 ===
 
 ```
@@ -12,8 +15,9 @@ cd $HOME/indices
 git clone https://github.com/shekharshank/indices.git
 ```
 
-Install GO:
+###Install GO:
 ====
+Follow the official document or the guidelines listed below:
 
 https://tecadmin.net/install-go-on-ubuntu/
 
@@ -35,10 +39,9 @@ go get
 
 ```
 
-
-
-Install Influxdb:
+###Install Influxdb:
 ====
+Follow the official document or the guidelines listed below:
 
 http://www.andremiller.net/content/grafana-and-influxdb-quickstart-on-ubuntu
 
@@ -54,17 +57,18 @@ echo "deb https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stabl
 sudo apt-get update && sudo apt-get install influxdb
 ```
 
-Start the service
+###Start the service
 ```
 sudo service influxdb start
 ```
 
 
-Install NTP
+###Install NTP
 ===
 
-install ntpdate & ntp
+Install ntpdate & ntp
 
+Follow the official document or the guidelines listed below:
 
 ```
 sudo apt-get install ntpdate
@@ -75,8 +79,9 @@ sudo apt-get install ntp
 sudo service ntpd start
 ```
 
+###Install RabbitMQ Server:
 
-Install RabbitMQ Server:
+Follow the official document or the guidelines listed below:
 
 
 ```
@@ -93,7 +98,9 @@ sudo apt-get update
 sudo apt-get install rabbitmq-server
 ```
 
-In the Collector.go program set following:
+###Server configurations:
+
+In the collector.go program set following:
 
 Set 
 
@@ -103,7 +110,7 @@ Set
 <collectd-queue> eg: collectd-queue
 <collectd-key> eg: collectd-key
 ```
-Also add the following user/password in the RabbitMQ
+Also add the following user/password and permissions in the RabbitMQ
 
 ```
  sudo rabbitmqctl add_user <user> <pass>
@@ -117,8 +124,7 @@ Misc. commands for deleting the queue
   sudo rabbitmqctl purge_queue "indices_queue"
 ```
 
-Enable the custom TCP port access to the Collector.go server for
-Port Number for 5672.
+Enable the custom TCP port access to the collector.go server for port number for 5672.
 
 Misc. Commands for Influxdb
 ```
@@ -135,21 +141,21 @@ select * from host_metrics where host='collectd-client'
 influx --database collectd-db --format csv --execute "select * from host_metrics where host='collectd-client'" > output.csv
 ```
 
-On Collectd Client
+##On Collector Client Hosts
 ====
 
-Enter the Collect server host name in the `/etc/hosts`
+### Enter the Collector server host name in the `/etc/hosts`
 
 eg: /etc/hosts
 
 ```
-129.59.*.* indices-manager
+*.*.*.* indices-manager
 ```
 
-Install NTP
+###Install NTP
 ===
 
-install ntpdate & ntp
+Install ntpdate & ntp
 
 
 ```
@@ -161,9 +167,7 @@ sudo apt-get install ntp
 sudo service ntpd start
 ```
 
-
-
-Install Collectd
+###Install Collectd
 
 ```
 sudo add-apt-repository ppa:collectd/collectd-5.5
@@ -175,15 +179,16 @@ sudo apt-get install collectd -y
 
 ```
 
-Configure collectd:
+###Configure collectd:
 
 
 ```
 sudo nano /etc/collectd/collectd.conf
 ```
 
-configure the AMQP plugin 
-Make sure to match the *Host* to the *indices-manager* as specified in the /etc/hosts
+###Configure the AMQP plugin 
+Make sure to match the *Host* to the *indices-manager* as specified in the /etc/hosts and the AMQP username, password and queue match
+the ones on the server.
 
 ```
 
@@ -192,8 +197,8 @@ Make sure to match the *Host* to the *indices-manager* as specified in the /etc/
                 Host "indices-manager"
                 Port "5672"
                 VHost "/"
-                User "indices_user"
-                Password "indices_pass"
+                User "<indices_user>"
+                Password "<indices_pass>"
                 Exchange "collectd-exchange"
                 RoutingKey "indices-perf-key"
                 Persistent false
