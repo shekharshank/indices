@@ -6,6 +6,7 @@ performance metrics to a central location. The collector server runs a Go lang a
 ##On Collector Server:
 
 ###Download Indices:
+
 ===
 
 ```
@@ -16,6 +17,7 @@ git clone https://github.com/shekharshank/indices.git
 
 ###Install GO:
 ====
+
 Follow the official document or the guidelines listed below:
 
 https://tecadmin.net/install-go-on-ubuntu/
@@ -60,6 +62,38 @@ sudo apt-get update && sudo apt-get install influxdb
 ```
 sudo service influxdb start
 ```
+
+
+
+Grafana:
+===
+
+Install Grafana:
+
+
+```
+echo "deb https://packagecloud.io/grafana/stable/debian/ jessie main" | sudo tee /etc/apt/sources.list.d/grafana.list
+
+curl https://packagecloud.io/gpg.key | sudo apt-key add -
+
+sudo apt-get update
+
+sudo apt-get install grafana -y
+
+```
+Start the server:
+
+```
+sudo service grafana-server start
+
+sudo update-rc.d grafana-server defaults
+
+```
+
+Enable 3000 port for the server to access the grafana dashboard.
+
+username : admin/admin
+
 
 
 ###Install NTP
