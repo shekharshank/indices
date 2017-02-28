@@ -65,7 +65,7 @@ sudo service influxdb start
 
 
 
-Grafana:
+###Grafana (Optional):
 ===
 
 Install Grafana:
@@ -81,7 +81,7 @@ sudo apt-get update
 sudo apt-get install grafana -y
 
 ```
-Start the server:
+Start Grafana server:
 
 ```
 sudo service grafana-server start
