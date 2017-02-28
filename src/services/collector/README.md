@@ -58,7 +58,7 @@ echo "deb https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stabl
 sudo apt-get update && sudo apt-get install influxdb
 ```
 
-###Start the service
+Start the service
 ```
 sudo service influxdb start
 ```
