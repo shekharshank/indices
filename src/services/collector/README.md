@@ -129,5 +129,67 @@ create database "collectd-db"
 use collectd-db
 show series
 show * from host_metrics
+select * from host_metrics where host='collectd-client'
+
+
+influx --database collectd-db --format csv --execute "select * from host_metrics where host='collectd-client'" > output.csv
+```
+
+On Collectd Client
+====
+
+Enter the Collect server host name in the `/etc/hosts`
+
+eg: /etc/hosts
 
 ```
+129.59.*.* indices-manager
+```
+
+
+Install Collectd
+
+```
+sudo add-apt-repository ppa:collectd/collectd-5.5
+sudo apt-get update
+```
+
+```
+sudo apt-get install collectd -y
+
+```
+
+Configure collectd:
+
+
+```
+sudo nano /etc/collectd/collectd.conf
+```
+
+configure the AMQP plugin 
+Make sure to match the *Host* to the *indices-manager* as specified in the /etc/hosts
+
+```
+
+<Plugin amqp>
+        <Publish "name">
+                Host "indices-manager"
+                Port "5672"
+                VHost "/"
+                User "indices_user"
+                Password "indices_pass"
+                Exchange "collectd-exchange"
+                RoutingKey "indices-perf-key"
+                Persistent false
+                StoreRates true
+                Format "json"
+        </Publish>
+</Plugin>
+
+```
+
+
+
+
+
+
