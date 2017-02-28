@@ -3,8 +3,7 @@
 The performance data collector relies on collectd for data collection on client machines and AMQP/RabbitMQ message queue for publishing
 performance metrics to a central location. The collector server runs a Go lang application that persists the data in influx DB.
 
-##On collection server:
-=====
+##On Collector Server:
 
 ###Download Indices:
 ===
@@ -98,7 +97,7 @@ sudo apt-get update
 sudo apt-get install rabbitmq-server
 ```
 
-###Server configurations:
+###Server Configurations:
 
 In the collector.go program set following:
 
@@ -141,8 +140,8 @@ select * from host_metrics where host='collectd-client'
 influx --database collectd-db --format csv --execute "select * from host_metrics where host='collectd-client'" > output.csv
 ```
 
-##On Collector Client Hosts
-====
+##On Collector Client Hosts:
+
 
 ### Enter the Collector server host name in the `/etc/hosts`
 
