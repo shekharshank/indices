@@ -146,6 +146,22 @@ eg: /etc/hosts
 129.59.*.* indices-manager
 ```
 
+Install NTP
+===
+
+install ntpdate & ntp
+
+
+```
+sudo apt-get install ntpdate
+
+ntpdate 0.ro.pool.ntp.org
+
+sudo apt-get install ntp
+sudo service ntpd start
+```
+
+
 
 Install Collectd
 
