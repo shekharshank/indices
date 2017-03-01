@@ -63,6 +63,13 @@ Start the service
 sudo service influxdb start
 ```
 
+Also enable port access to 8083 for the admin ui of InfluxDB.
+To use the admin UI configure edit the configuration file `/etc/influxdb/influxdb.conf`
+
+[admin]
+enabled = true
+
+
 
 
 ###Grafana (Optional):
