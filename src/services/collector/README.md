@@ -249,6 +249,11 @@ the ones on the server.
 
 ```
 
+###Docker Monitoring
+
+Follow the guide on https://github.com/lebauce/docker-collectd-plugin
+
+
 
 
 
